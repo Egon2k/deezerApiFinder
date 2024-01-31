@@ -6,11 +6,15 @@
     <title>Search Results</title>
 </head>
 <body>
-    <a href="/">Back to search</a>
     <h1>Search Results</h1>
 
-    <p>Query: {{search_query}}</p>
-
+    <p>
+        <form method="post" action="/">
+            <label for="search_query">Search:</label>
+            <input type="text" name="search_query" value="{{search_query}}" required>
+            <button type="submit">Search</button>
+        </form>
+    </p>
     <table border="1">
          <thead>
             <tr>

@@ -7,11 +7,11 @@ app = Flask(__name__)
 API_KEY = 'YOUR_API_KEY'
 API_URL = 'https://api.deezer.com/search/track'
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
 
-@app.route('/search', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
         search_query = request.form['search_query']
@@ -33,6 +33,8 @@ def search():
         
         except requests.RequestException as e:
             return render_template('index.html', error=f'Error fetching data from API: {e}')
+    else:
+        return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
