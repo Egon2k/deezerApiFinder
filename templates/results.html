@@ -19,6 +19,7 @@
                 <th>Title</th>
                 <th>Artist</th>
                 <th>Length</th>
+                <th>Copy</th>
                 <th>Link</th>                
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <td>{{d.title}}</td>
                 <td>{{d.artist['name']}}</td>
                 <td>{{d.duration//60}}:{% if d.duration%60 < 10 %}0{{d.duration%60}}{% else %}{{d.duration%60}}{%endif%}</td>
+                <td>{{d.id}} = "{{d.title}}"</td>
                 <td><a href="{{d.link}}">link</a></td>
             </tr>
             {% endfor %}
