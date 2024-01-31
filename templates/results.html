@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <a href="/">Back to search</a>
+    <h1>Search Results</h1>
+
+    <p>Query: {{search_query}}</p>
+
+    <table border="1">
+         <thead>
+            <tr>
+                <th>Cover</th>
+                <th>TrackId</th>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Length</th>
+                <th>Link</th>                
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in data['data'] %}
+            <tr>
+                <td><img src="{{d.album['cover_small']}}"></td>
+                <td>{{d.id}}</td>
+                <td>{{d.title}}</td>
+                <td>{{d.artist['name']}}</td>
+                <td>{{d.duration//60}}:{% if d.duration%60 < 10 %}0{{d.duration%60}}{% else %}{{d.duration%60}}{%endif%}</td>
+                <td><a href="{{d.link}}">link</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</body>
+</html>
