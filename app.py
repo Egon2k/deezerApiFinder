@@ -14,13 +14,13 @@ API_URL = 'https://api.deezer.com/search/track'
 @app.route('/', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
-        search_query = request.form['search_query']
+        search_query_from = request.form['search_query_from']
 
-        if not search_query:
+        if not search_query_from:
             return render_template('index.html', error='Please enter a search query.')
 
         params = {
-            'q': search_query,
+            'q': search_query_from,
         #    'appid': API_KEY
         }
         
@@ -29,7 +29,7 @@ def search():
             data = response.json()
             
             # For demonstration, just passing raw data to the template
-            return render_template('results.html', search_query=search_query, data=data)
+            return render_template('results.html', search_query_to=search_query_from, data=data)
         
         except requests.RequestException as e:
             return render_template('index.html', error=f'Error fetching data from API: {e}')
