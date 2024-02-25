@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} - Deezer API</title>
+</head>
+<body>
+  <div>
+    <form method="post" action="/">
+      <fieldset>
+        <label for="search_query">Search:</label>
+        <input
+          type="text"
+          name="search_query"
+          value="{{result_query}}"
+          required
+        />
+        <button type="submit">Search</button>
+        
+        <div>
+          <input
+            type="radio"
+            id="radio_track"
+            name="type"
+            value="track"
+            {% if result_radio == 'track' %}
+              checked="checked"
+            {% endif %}
+          />
+          <label for="radio_track">track</label>
+
+          <input
+            type="radio"
+            id="radio_album"
+            name="type"
+            value="album"
+            {% if result_radio == 'album' %}
+              checked="checked"
+            {% endif %}
+          />
+          <label for="radio_album">album</label>
+
+          <input
+            type="radio"
+            id="radio_artist"
+            name="type"
+            value="artist"
+            {% if result_radio == 'artist' %}
+              checked="checked"
+            {% endif %}
+          />
+          <label for="radio_artist">artist</label>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+    <div class="content">
+        {% block content %} {% endblock %}
+    </div>
+</body>
+</html>

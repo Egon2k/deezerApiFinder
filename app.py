@@ -3,38 +3,36 @@ import requests
 
 app = Flask(__name__)
 
-# Replace 'YOUR_API_KEY' with your actual API key
-API_KEY = 'YOUR_API_KEY'
-API_URL = 'https://api.deezer.com/search/track'
-
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+API_URL = 'https://api.deezer.com/search/'
 
 @app.route('/', methods=['GET', 'POST'])
-def search():
+def index():
     if request.method == 'POST':
-        search_query_from = request.form['search_query_from']
-
-        if not search_query_from:
-            return render_template('index.html', error='Please enter a search query.')
+        # data requested from form
+        search_query = request.form['search_query']
+        search_radio = request.form['type']
 
         params = {
-            'q': search_query_from,
-        #    'appid': API_KEY
+            'q': search_query,
         }
         
         try:
-            response = requests.get(API_URL, params=params)
-            data = response.json()
+            response = requests.get(API_URL + search_radio, params=params)
+            results = response.json()
             
-            # For demonstration, just passing raw data to the template
-            return render_template('results.html', search_query_to=search_query_from, data=data)
+            # render template with some parameter
+            return render_template(search_radio + '.html', 
+                                   result_query=search_query, 
+                                   result_radio=search_radio,
+                                   results=results)
         
         except requests.RequestException as e:
-            return render_template('index.html', error=f'Error fetching data from API: {e}')
+            return render_template('error.html', error=f'Error fetching data from API: {e}')
+
     else:
-        return render_template('index.html')
+        # in case of no POST request (initial page load) render index.html with radio 
+        # button "track" selected by default
+        return render_template('index.html', result_radio='track')
 
 if __name__ == '__main__':
     app.run(debug=True)

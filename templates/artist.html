@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Artists {% endblock %}
+
+{% block content %}
+    <table border="1">
+        <thead>
+           <tr>
+               <th>Picture</th>
+               <th>Artist Id</th>
+               <th>Name</th>
+               <th>Albums</th>
+               <th>Fans</th>
+               <th>Copy</th>
+               <th>Link</th>                
+           </tr>
+       </thead>
+       <tbody>
+           {% for result in results['data'] %}
+           <tr>
+               <td><img src="{{result.picture_small}}"></td>
+               <td>{{result.id}}</td>
+               <td>{{result.name}}</td>
+               <td>{{result.nb_album}}</td>
+               <td>{{result.nb_fan}}</td>
+               <td>{{result.id}} = "{{result.name}}"</td>
+               <td><a href="{{result.link}}">link</a></td>
+           </tr>
+           {% endfor %}
+       </tbody>
+   </table>
+{% endblock %}
